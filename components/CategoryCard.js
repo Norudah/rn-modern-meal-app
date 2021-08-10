@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+
 import { Colors } from "../style";
+import componentStyles from "../style/components";
 
 export default function CategoryCard(props) {
   return (
@@ -15,16 +17,9 @@ export default function CategoryCard(props) {
 
 const styles = StyleSheet.create({
   component: {
-    flex: 1,
-    height: 120,
-    marginVertical: 10,
-    marginHorizontal: 10,
-    alignItems: "flex-end",
-    justifyContent: "flex-end",
-    borderRadius: 10,
-    padding: 10,
+    ...componentStyles.categoryCard,
   },
   label: {
-    color: "white",
+    color: Colors.white.normal,
   },
 });

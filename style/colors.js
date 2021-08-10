@@ -5,3 +5,7 @@ export const primary = {
 export const secondary = {
   brand: "#e0d1ff",
 };
+
+export const white = {
+  normal: "white",
+};
