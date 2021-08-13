@@ -1,12 +1,12 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 
-import MealNavigator from "./navigations/meal-navigator";
+import FavoriteNavigator from "./navigations/FavoriteNavigator";
 
 export default function App() {
   return (
     <NavigationContainer>
-      <MealNavigator />
+      <FavoriteNavigator />
     </NavigationContainer>
   );
 }
