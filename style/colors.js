@@ -9,3 +9,16 @@ export const secondary = {
 export const white = {
   normal: "white",
 };
+
+export const black = {
+  normal: "black",
+  transparent: {
+    x7: "#0007",
+  },
+};
+
+export const grey = {
+  normal: {
+    x3: "#e3e3e3",
+  },
+};
