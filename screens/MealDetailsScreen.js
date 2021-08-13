@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Image, ScrollView, Button } from "react-native";
 import { MEALS } from "../data/dummy-data";
 import { Colors, Spacing, Sizing } from "../style";
 
