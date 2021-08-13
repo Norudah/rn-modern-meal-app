@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, ScrollView, Button } from "react-native";
+import DescriptiveLine from "../components/DescriptiveLine";
 import { MEALS } from "../data/dummy-data";
 import { Colors, Spacing, Sizing } from "../style";
 
@@ -7,8 +8,11 @@ export default function MealDetailsScreen({ navigation, route }) {
   const { mealId } = route.params;
   const meal = MEALS.find((meal) => meal.id === mealId);
 
-  const ingredients = meal.ingredients.map((ingredient) => <Text>{ingredient}</Text>);
-  const steps = meal.steps.map((step) => <Text>{step}</Text>);
+  const ingredients = meal.ingredients.map((ingredient) => (
+    <DescriptiveLine withBullets={true}>{ingredient}</DescriptiveLine>
+  ));
+
+  const steps = meal.steps.map((step) => <DescriptiveLine>{step}</DescriptiveLine>);
 
   return (
     <ScrollView style={styles.container}>
@@ -24,12 +28,12 @@ export default function MealDetailsScreen({ navigation, route }) {
           <Text style={styles.informationLabel}>{meal.affordability.toUpperCase()}</Text>
         </View>
       </View>
-      <View>
-        <Text>Ingredients</Text>
+      <View style={{ ...styles.subContainers, ...styles.ingredientsContainer }}>
+        <Text style={styles.subLabels}>{"Ingredients".toUpperCase()}</Text>
         {ingredients}
       </View>
-      <View>
-        <Text>Recette</Text>
+      <View style={{ ...styles.subContainers, ...styles.recipeContainer }}>
+        <Text style={styles.subLabels}>{"Recipe".toUpperCase()}</Text>
         {steps}
       </View>
     </ScrollView>
@@ -55,6 +59,17 @@ const styles = StyleSheet.create({
   informationLabel: {
     textAlign: "center",
   },
-  ingredients: {},
-  recipe: {},
+  subContainers: {
+    marginTop: Spacing.margin.x30,
+  },
+  subLabels: {
+    textAlign: "center",
+    marginBottom: Spacing.margin.x20,
+  },
+  ingredientsContainer: {
+    marginLeft: Spacing.margin.x20,
+  },
+  recipeContainer: {
+    marginHorizontal: Spacing.margin.x20,
+  },
 });
