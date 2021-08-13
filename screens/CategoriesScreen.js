@@ -38,7 +38,7 @@ export default function CategoriesScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   screen: {
-    padding: 10,
+    paddingHorizontal: 10,
     flex: 1,
   },
   list: {

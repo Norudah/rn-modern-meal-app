@@ -1,13 +1,19 @@
 import React from "react";
-import { Button } from "react-native";
+import { Button, Text } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Colors } from "../style";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+import { Colors, Sizing } from "../style";
 
 import CategoriesScreen from "../screens/CategoriesScreen";
 import MealsScreen from "../screens/MealsScreen";
 import MealDetailsScreen from "../screens/MealDetailsScreen";
 
 const Stack = createNativeStackNavigator();
+
+const menuIcon = (
+  <MaterialCommunityIcons name="menu" size={Sizing.icon.x20} color="black" />
+);
 
 const MealNavigator = () => {
   return (
@@ -20,7 +26,7 @@ const MealNavigator = () => {
       <Stack.Screen
         name="Categories"
         component={CategoriesScreen}
-        options={{ title: "Les catégories" }}
+        options={{ title: "Categories", headerLeft: () => menuIcon }}
       />
       <Stack.Screen
         name="Meals"
