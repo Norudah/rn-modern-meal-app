@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Text } from "react-native";
+import { Button, Text, TouchableOpacity } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -10,10 +10,6 @@ import MealsScreen from "../screens/MealsScreen";
 import MealDetailsScreen from "../screens/MealDetailsScreen";
 
 const Stack = createNativeStackNavigator();
-
-const menuIcon = (
-  <MaterialCommunityIcons name="menu" size={Sizing.icon.x20} color="black" />
-);
 
 const MealNavigator = () => {
   return (
@@ -26,7 +22,20 @@ const MealNavigator = () => {
       <Stack.Screen
         name="Categories"
         component={CategoriesScreen}
-        options={{ title: "Categories", headerLeft: () => menuIcon }}
+        options={({ route, navigation }) => ({
+          title: "Categories",
+          headerLeft: () => {
+            return (
+              <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+                <MaterialCommunityIcons
+                  name="menu"
+                  size={Sizing.icon.x20}
+                  color="black"
+                />
+              </TouchableOpacity>
+            );
+          },
+        })}
       />
       <Stack.Screen
         name="Meals"
