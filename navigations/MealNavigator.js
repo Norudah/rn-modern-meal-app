@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Text, TouchableOpacity } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
 
 import { Colors, Sizing } from "../style";
 
@@ -47,7 +47,15 @@ const MealNavigator = () => {
         component={MealDetailsScreen}
         options={({ route }) => ({
           title: route.params.mealName,
-          headerRight: () => <Button title="favorite" />,
+          headerRight: () => (
+            <TouchableOpacity activeOpacity={0.6}>
+              <FontAwesome
+                name="star-o"
+                size={Sizing.icon.x20}
+                color={Colors.primary.brand}
+              />
+            </TouchableOpacity>
+          ),
         })}
       />
     </Stack.Navigator>
