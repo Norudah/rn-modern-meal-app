@@ -1,15 +1,54 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useCallback, useState } from "react";
+import { View, Text, StyleSheet, Button } from "react-native";
 import FilterSwitch from "../components/FilterSwitch";
 import { Sizing, Spacing } from "../style";
 
 export default function FiltersScreen() {
+  const [wantsWithoutLactose, setWantsWithoutLactose] = useState(false);
+  const [wantsWithoutGluten, setWantsWithoutGluten] = useState(false);
+  const [wantsOnlyVegetarian, setWantsOnlyVegetarian] = useState(false);
+  const [wantsOnlyVegan, setWantsOnlyVegan] = useState(false);
+
+  const saveFilters = useCallback(() => {
+    const filters = {
+      withoutLactose: wantsWithoutLactose,
+      withoutGluten: wantsWithoutGluten,
+      onlyVegetarian: wantsOnlyVegetarian,
+      onlyVegan: wantsOnlyVegan,
+    };
+
+    // TODO : Save with Reduw next
+    console.log(filters);
+  }, [wantsWithoutLactose, wantsWithoutGluten, wantsOnlyVegetarian, wantsOnlyVegan]);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Switch or unswitch filters</Text>
-      <View style={styles.filterContaier}>
-        <FilterSwitch label="Without Gluten" />
+      <View style={styles.topPart}>
+        <Text style={styles.label}>Switch or unswitch filters</Text>
+        <View style={styles.filterContaier}>
+          <FilterSwitch
+            label="Without lactose"
+            onPress={() => setWantsWithoutLactose((prevState) => !prevState)}
+            value={wantsWithoutLactose}
+          />
+          <FilterSwitch
+            label="Without gluten"
+            onPress={() => setWantsWithoutGluten((prevState) => !prevState)}
+            value={wantsWithoutGluten}
+          />
+          <FilterSwitch
+            label="Only vegetarian"
+            onPress={() => setWantsOnlyVegetarian((prevState) => !prevState)}
+            value={wantsOnlyVegetarian}
+          />
+          <FilterSwitch
+            label="Only vegan"
+            onPress={() => setWantsOnlyVegan((prevState) => !prevState)}
+            value={wantsOnlyVegan}
+          />
+        </View>
       </View>
+      <Button title="Apply now" onPress={saveFilters} />
     </View>
   );
 }
@@ -17,8 +56,12 @@ export default function FiltersScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: Spacing.padding.x10,
+    padding: Spacing.padding.x20,
     paddingHorizontal: Spacing.padding.x20,
+  },
+  topPart: {
+    flex: 1,
+    // width: "100%",
     alignItems: "center",
   },
   label: {
