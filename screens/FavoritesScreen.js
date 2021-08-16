@@ -3,14 +3,12 @@ import { View, Text, StyleSheet } from "react-native";
 
 import { useSelector } from "react-redux";
 
+import MealsList from "../components/MealsList";
+
 export default function FavoritesScreen() {
   const favorites = useSelector((state) => state.favorites);
 
-  return (
-    <View style={styles.container}>
-      <Text>Favorites !</Text>
-    </View>
-  );
+  return <MealsList data={favorites} />;
 }
 
 const styles = StyleSheet.create({
