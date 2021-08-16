@@ -1,12 +1,15 @@
 import React from "react";
 import { View, FlatList, StyleSheet } from "react-native";
-import { MEALS } from "../data/dummy-data";
+
+import { useSelector } from "react-redux";
+
 import MealCard from "../components/MealCard";
 
 export default function MealsScreen({ navigation, route }) {
   const { categoryId } = route.params;
+  const filteredMeals = useSelector((state) => state.filteredMeals);
 
-  const mealsFilteredByCategory = MEALS.filter((meal) => {
+  const mealsFilteredByCategory = filteredMeals.filter((meal) => {
     return meal.categoryIds.find((id) => id == categoryId);
   });
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+
 import { Outlines, Sizing, Colors, Spacing } from "../style";
 
 export default function DescriptiveLine(props) {

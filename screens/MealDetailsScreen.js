@@ -1,18 +1,28 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, ScrollView, Button } from "react-native";
-import DescriptiveLine from "../components/DescriptiveLine";
+
+import { useSelector } from "react-redux";
+
 import { MEALS } from "../data/dummy-data";
 import { Colors, Spacing, Sizing } from "../style";
 
-export default function MealDetailsScreen({ navigation, route }) {
+import DescriptiveLine from "../components/DescriptiveLine";
+
+export default function MealDetailsScreen({ route }) {
   const { mealId } = route.params;
-  const meal = MEALS.find((meal) => meal.id === mealId);
+  const meals = useSelector((state) => state.meals);
+
+  const meal = meals.find((meal) => meal.id === mealId);
 
   const ingredients = meal.ingredients.map((ingredient) => (
-    <DescriptiveLine withBullets={true}>{ingredient}</DescriptiveLine>
+    <DescriptiveLine key={ingredient} withBullets={true}>
+      {ingredient}
+    </DescriptiveLine>
   ));
 
-  const steps = meal.steps.map((step) => <DescriptiveLine>{step}</DescriptiveLine>);
+  const steps = meal.steps.map((step) => (
+    <DescriptiveLine key={step}>{step}</DescriptiveLine>
+  ));
 
   return (
     <ScrollView style={styles.container}>
