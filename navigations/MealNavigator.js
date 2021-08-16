@@ -47,15 +47,6 @@ const MealNavigator = () => {
         component={MealDetailsScreen}
         options={({ route }) => ({
           title: route.params.mealName,
-          headerRight: () => (
-            <TouchableOpacity activeOpacity={0.6}>
-              <FontAwesome
-                name="star-o"
-                size={Sizing.icon.x20}
-                color={Colors.primary.brand}
-              />
-            </TouchableOpacity>
-          ),
         })}
       />
     </Stack.Navigator>

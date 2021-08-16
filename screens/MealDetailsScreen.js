@@ -1,20 +1,48 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, Button, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Button,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 
+import { FontAwesome } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Colors, Spacing, Sizing } from "../style";
 
 import DescriptiveLine from "../components/DescriptiveLine";
 import { toggleFavorite } from "../store/actions/meals";
+import { useEffect } from "react";
 
-export default function MealDetailsScreen({ route }) {
+export default function MealDetailsScreen({ route, navigation }) {
   const { mealId } = route.params;
   const meals = useSelector((state) => state.meals);
 
   const meal = meals.find((meal) => meal.id === mealId);
 
   const dispatch = useDispatch();
+
+  const handleToggleFavorite = () => dispatch(toggleFavorite(mealId));
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <TouchableOpacity activeOpacity={0.6} onPress={handleToggleFavorite}>
+            <FontAwesome
+              name="star-o"
+              size={Sizing.icon.x20}
+              color={Colors.primary.brand}
+            />
+          </TouchableOpacity>
+        );
+      },
+    });
+  }, [navigation]);
 
   const ingredients = meal.ingredients.map((ingredient) => (
     <DescriptiveLine key={ingredient} withBullets={true}>
@@ -29,9 +57,7 @@ export default function MealDetailsScreen({ route }) {
   return (
     <ScrollView style={styles.container}>
       <Image style={styles.image} source={{ uri: meal.imageUrl }} />
-      <View>
-        <Button title="Favorite" onPress={() => dispatch(toggleFavorite(mealId))} />
-      </View>
+      <View></View>
       <View style={styles.information}>
         <View style={styles.informationLabelContainer}>
           <Text style={styles.informationLabel}>{meal.duration} min</Text>
