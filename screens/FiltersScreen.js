@@ -1,13 +1,20 @@
 import React, { useCallback, useState } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
-import FilterSwitch from "../components/FilterSwitch";
+
+import { useDispatch } from "react-redux";
+import { updateFilters } from "../store/actions/meals";
+
 import { Sizing, Spacing } from "../style";
+
+import FilterSwitch from "../components/FilterSwitch";
 
 export default function FiltersScreen() {
   const [wantsWithoutLactose, setWantsWithoutLactose] = useState(false);
   const [wantsWithoutGluten, setWantsWithoutGluten] = useState(false);
   const [wantsOnlyVegetarian, setWantsOnlyVegetarian] = useState(false);
   const [wantsOnlyVegan, setWantsOnlyVegan] = useState(false);
+
+  const dispatch = useDispatch();
 
   const saveFilters = useCallback(() => {
     const filters = {
@@ -17,9 +24,15 @@ export default function FiltersScreen() {
       onlyVegan: wantsOnlyVegan,
     };
 
-    // TODO : Save with Reduw next
-    console.log(filters);
-  }, [wantsWithoutLactose, wantsWithoutGluten, wantsOnlyVegetarian, wantsOnlyVegan]);
+    dispatch(updateFilters(filters));
+  }, [
+    wantsWithoutLactose,
+    wantsWithoutGluten,
+    wantsOnlyVegetarian,
+    wantsOnlyVegan,
+    dispatch,
+    updateFilters,
+  ]);
 
   return (
     <View style={styles.container}>
@@ -61,7 +74,6 @@ const styles = StyleSheet.create({
   },
   topPart: {
     flex: 1,
-    // width: "100%",
     alignItems: "center",
   },
   label: {

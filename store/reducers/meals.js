@@ -1,5 +1,5 @@
 import { MEALS } from "../../data/dummy-data";
-import { TOGGLE_FAVORITE } from "../actions/meals";
+import { TOGGLE_FAVORITE, UPDATE_FILTERS } from "../actions/meals";
 
 const initialState = {
   meals: MEALS,
@@ -9,7 +9,6 @@ const initialState = {
 
 const mealsReducer = (state = initialState, action) => {
   switch (action.type) {
-    // Put a meal into the favorite array or remove it from the array
     case TOGGLE_FAVORITE:
       const id = action.id;
       const meal = state.favorites.find((favoriteMeal) => favoriteMeal.id === id);
@@ -25,6 +24,21 @@ const mealsReducer = (state = initialState, action) => {
         favorites.push(favoriteMeal);
         return { ...state, favorites: favorites };
       }
+
+    case UPDATE_FILTERS:
+      const settings = action.settings;
+      const filteredMeals = state.meals.filter((meal) => {
+        if (!meal.isLactoseFree && settings.withoutLactose) return false;
+        if (!meal.isGlutenFree && settings.withoutGluten) return false;
+        if (!meal.isVegetarian && settings.onlyVegetarian) return false;
+        if (!meal.isVegan && settings.onlyVegan) return false;
+        return meal;
+      });
+
+      return {
+        ...state,
+        filteredMeals,
+      };
 
     default:
       return state;
