@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -16,33 +16,35 @@ import { Colors, Spacing, Sizing } from "../style";
 
 import DescriptiveLine from "../components/DescriptiveLine";
 import { toggleFavorite } from "../store/actions/meals";
-import { useEffect } from "react";
 
 export default function MealDetailsScreen({ route, navigation }) {
   const { mealId } = route.params;
+
   const meals = useSelector((state) => state.meals);
+
+  const favorites = useSelector((state) => state.favorites);
+  const isFav = favorites.some((meal) => meal.id === mealId);
+
+  const dispatch = useDispatch();
+  const handleToggleFavorite = useCallback(() => {
+    dispatch(toggleFavorite(mealId));
+  }, [dispatch, mealId]);
 
   const meal = meals.find((meal) => meal.id === mealId);
 
-  const dispatch = useDispatch();
-
-  const handleToggleFavorite = () => dispatch(toggleFavorite(mealId));
-
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => {
-        return (
-          <TouchableOpacity activeOpacity={0.6} onPress={handleToggleFavorite}>
-            <FontAwesome
-              name="star-o"
-              size={Sizing.icon.x20}
-              color={Colors.primary.brand}
-            />
-          </TouchableOpacity>
-        );
-      },
+      headerRight: () => (
+        <TouchableOpacity activeOpacity={0.6} onPress={handleToggleFavorite}>
+          <FontAwesome
+            name={isFav ? "star" : "star-o"}
+            size={Sizing.icon.x20}
+            color={Colors.primary.brand}
+          />
+        </TouchableOpacity>
+      ),
     });
-  }, [navigation]);
+  }, [navigation, handleToggleFavorite, isFav]);
 
   const ingredients = meal.ingredients.map((ingredient) => (
     <DescriptiveLine key={ingredient} withBullets={true}>
