@@ -1,18 +1,20 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, ScrollView, Button } from "react-native";
+import { View, Text, StyleSheet, Image, Button, ScrollView } from "react-native";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { MEALS } from "../data/dummy-data";
 import { Colors, Spacing, Sizing } from "../style";
 
 import DescriptiveLine from "../components/DescriptiveLine";
+import { toggleFavorite } from "../store/actions/meals";
 
 export default function MealDetailsScreen({ route }) {
   const { mealId } = route.params;
   const meals = useSelector((state) => state.meals);
 
   const meal = meals.find((meal) => meal.id === mealId);
+
+  const dispatch = useDispatch();
 
   const ingredients = meal.ingredients.map((ingredient) => (
     <DescriptiveLine key={ingredient} withBullets={true}>
@@ -27,6 +29,9 @@ export default function MealDetailsScreen({ route }) {
   return (
     <ScrollView style={styles.container}>
       <Image style={styles.image} source={{ uri: meal.imageUrl }} />
+      <View>
+        <Button title="Favorite" onPress={() => dispatch(toggleFavorite(mealId))} />
+      </View>
       <View style={styles.information}>
         <View style={styles.informationLabelContainer}>
           <Text style={styles.informationLabel}>{meal.duration} min</Text>
