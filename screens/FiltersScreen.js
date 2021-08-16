@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Button } from "react-native";
 import { useDispatch } from "react-redux";
 import { updateFilters } from "../store/actions/meals";
 
-import { Sizing, Spacing } from "../style";
+import { Colors, Spacing } from "../style";
 
 import FilterSwitch from "../components/FilterSwitch";
 
@@ -61,7 +61,7 @@ export default function FiltersScreen() {
           />
         </View>
       </View>
-      <Button title="Apply now" onPress={saveFilters} />
+      <Button title="Apply now" onPress={saveFilters} color={Colors.primary.brand} />
     </View>
   );
 }

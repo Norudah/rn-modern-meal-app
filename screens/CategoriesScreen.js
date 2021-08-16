@@ -1,8 +1,6 @@
 import React from "react";
 import { View, FlatList, StyleSheet } from "react-native";
 
-import { Colors } from "../style";
-
 import CategoryCard from "../components/CategoryCard";
 
 import { CATEGORIES } from "../data/dummy-data";
